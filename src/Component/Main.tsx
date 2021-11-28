@@ -4,10 +4,9 @@ import MainConatiner from './Main/MainConatiner';
 
 const Main = () => {
     return (
-        <div className="Main">
+        <div className="root_main">
             <Header/>
             <MainConatiner />
-            <button type="button" className="btn btn-danger">danger</button>
         </div>
     );
 };

@@ -13,6 +13,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js'],
         alias: {
             '@': path.resolve(__dirname, '../src/'),
+            // '@css': path.resolve(__dirname + "../src/css")
         },
     },
     module: {
@@ -33,6 +34,7 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
+                // loader: "style!css"
             },
         ],
     },
