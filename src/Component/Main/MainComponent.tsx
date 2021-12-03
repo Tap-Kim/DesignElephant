@@ -1,12 +1,14 @@
 import React from 'react';
+import HomeContainer from './Home/HomeContainer';
 import MainPresenter from './MainPresenter';
 
-const MainConatiner = () => {
+const MainComponent = () => {
     return (
         <div>
+            <HomeContainer />
             <MainPresenter />
         </div>
     );
 };
 
-export default MainConatiner;
+export default MainComponent;
