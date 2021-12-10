@@ -8,11 +8,13 @@ import { BasicInfo } from '@/model/common.interface'
 function ERDBasicPopup(props: any) {
     const [basicInfo, setBasicInfo] = useState<BasicInfo>({})
     const { isERDBasicPopup, setIsRDBasicPopup } = props
-    
-    let { dbType = DB_TYPE_LIST[0], erdName = "", erdSize1 = null, erdSize2 = null, relationLineNotionType = RELATION_TYPE_LIST[0], dbName = "", tableColor = ""} = basicInfo
+
+    let { dbType = DB_TYPE_LIST[0], relationLineNotionType = RELATION_TYPE_LIST[0], erdName = "", erdSize1 = null, erdSize2 = null, dbName = "", tableColor = "" } = basicInfo
 
     const handleSetBasicInfo = (type: string, value: string | number) => {
-        console.log(type, value)
+        if (type === "erdName" && typeof value == "string" && value.length > 100) {
+            
+        }
         setBasicInfo(produce(basicInfo, (draft: any) => { draft[type] = value }))
     }
 
@@ -32,13 +34,13 @@ function ERDBasicPopup(props: any) {
                     <strong>ERD 기본 정보를 설정하세요</strong>
                     <div>
                         <div style={box}>
-                            <span style={{width: '140px'}}>데이터베이스 타입</span>
+                            <span style={{ width: '140px' }}>데이터베이스 타입</span>
                             <DropdownButton id="dropdown-item-button" variant="secondary" size="sm" title={dbType}>
                                 {DB_TYPE_LIST.map((d: string) => <Dropdown.Item key={d} eventKey={d} onClick={() => handleSetBasicInfo("dbType", d)}>{d}</Dropdown.Item>)}
                             </DropdownButton>
                         </div>
                         <div style={box}>
-                            <span style={{width: '210px'}}>ERD 이름</span>
+                            <span style={{ width: '210px' }}>ERD 이름</span>
                             <Form.Control
                                 type="text"
                                 name="erdName"
@@ -48,7 +50,7 @@ function ERDBasicPopup(props: any) {
                             />
                         </div>
                         <div style={box}>
-                            <span style={{width: '100%'}}>ERD 크기</span>
+                            <span style={{ width: '100%' }}>ERD 크기</span>
                             <Form.Control
                                 type="text"
                                 name="erdSize1"
@@ -66,9 +68,13 @@ function ERDBasicPopup(props: any) {
                             />
                         </div>
                         <div style={box}>
-                            <span style={{width: '210px'}}>관계선 표기법</span>
-                            <DropdownButton id="dropdown-item-button" variant="secondary" size="sm" title={relationLineNotionType}>
-                                {RELATION_TYPE_LIST.map((d: any) => <Dropdown.Item key={d.txt} eventKey={d.txt} onClick={() => handleSetBasicInfo("relationLineNotionType", d.txt)}>{d.txt}</Dropdown.Item>)}
+                            <span style={{ width: '210px' }}>관계선 표기법</span>
+                            <DropdownButton
+                                id="dropdown-item-button" variant="secondary" size="sm" style={{width: '100%'}}
+                                title={<div style={{ display: 'inline-block' }}><img src={relationLineNotionType.src} alt={relationLineNotionType.txt} />{relationLineNotionType.txt}</div>}
+                            >
+                                {RELATION_TYPE_LIST.map((d: any) =>
+                                    <Dropdown.Item key={d.txt} eventKey={d.txt} onClick={() => handleSetBasicInfo("relationLineNotionType", d)}><img src={d.src} alt={d.txt} /> {d.txt}</Dropdown.Item>)}
                             </DropdownButton>
                         </div>
                     </div>
@@ -96,5 +102,5 @@ const box = {
 }
 
 const boxTxt = {
-    width:'200px'
+    width: '200px'
 }

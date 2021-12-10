@@ -1,9 +1,11 @@
+type RelationLineNotion = {src: string, txt: string}
+
 export interface BasicInfo {
     dbType?: string,
     erdName?: string,
     erdSize1?: number,
     erdSize2?: number,
-    relationLineNotionType?: string,
+    relationLineNotionType?: RelationLineNotion,
     dbName?: string,
     tableColor?: string,
 }
