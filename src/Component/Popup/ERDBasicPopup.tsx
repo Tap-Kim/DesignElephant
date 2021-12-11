@@ -4,16 +4,26 @@ import produce from 'immer'
 
 import { DB_TYPE_LIST, RELATION_TYPE_LIST } from '@/Enums/enums'
 import { BasicInfo } from '@/model/common.interface'
+import { useContext } from 'react'
+import { MessageState } from '@/Context/MessageContextProvider'
 
 function ERDBasicPopup(props: any) {
     const [basicInfo, setBasicInfo] = useState<BasicInfo>({})
     const { isERDBasicPopup, setIsRDBasicPopup } = props
 
     let { dbType = DB_TYPE_LIST[0], relationLineNotionType = RELATION_TYPE_LIST[0], erdName = "", erdSize1 = null, erdSize2 = null, dbName = "", tableColor = "" } = basicInfo
+    
+    // 메세지 컨텍스트 임시
+    const message = useContext(MessageState)
 
     const handleSetBasicInfo = (type: string, value: string | number) => {
-        if (type === "erdName" && typeof value == "string" && value.length > 100) {
-            
+        if (type === "erdName" && typeof value == "string" && value.length > 5) {
+            // 메세지 컨텍스트 임시 로직
+            let ele = document.createElement('a')
+            ele.setAttribute('onclick', message("메세지!!!"))
+            document.body.appendChild(ele)
+            ele.click()
+            document.body.removeChild(ele)
         }
         setBasicInfo(produce(basicInfo, (draft: any) => { draft[type] = value }))
     }
