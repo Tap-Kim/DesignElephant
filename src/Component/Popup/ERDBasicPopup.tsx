@@ -14,16 +14,11 @@ function ERDBasicPopup(props: any) {
     let { dbType = DB_TYPE_LIST[0], relationLineNotionType = RELATION_TYPE_LIST[0], erdName = "", erdSize1 = null, erdSize2 = null, dbName = "", tableColor = "" } = basicInfo
     
     // 메세지 컨텍스트 임시
-    const message = useContext(MessageState)
+    const EPDialog = useContext(MessageState)
 
     const handleSetBasicInfo = (type: string, value: string | number) => {
-        if (type === "erdName" && typeof value == "string" && value.length > 5) {
-            // 메세지 컨텍스트 임시 로직
-            let ele = document.createElement('a')
-            ele.setAttribute('onclick', message("메세지!!!"))
-            document.body.appendChild(ele)
-            ele.click()
-            document.body.removeChild(ele)
+        if (type === "erdName" && typeof value == "string" && value.length > 10) {
+            EPDialog("10자 이상의 이름을 지정할 수 없습니다.")
         }
         setBasicInfo(produce(basicInfo, (draft: any) => { draft[type] = value }))
     }

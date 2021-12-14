@@ -5,11 +5,13 @@ export const MessageState = createContext<any | undefined>(undefined)
 type Props = { children: React.ReactNode }
 type Children = {
     message?: string,
+    callBack?: any,
     options?: optionsProps,
     render?: boolean
-}[]
+}
 function MessageContextProvider({ children }: Props) {
-    const [messages, setMessages] = useState<Children>([])
+    // const [messages, setMessages] = useState<Children>([])
+    const [messages, setMessages] = useState<Children>()
     const initalOptions = useMemo(() => ({
         position: { bottomRight: true, bottomLeft: false },
         info: { success: false, warn: false, normal: true },
@@ -17,9 +19,9 @@ function MessageContextProvider({ children }: Props) {
         cancelable: true
     }), [])
 
-    const messaging = useCallback((text: string, option?: optionsProps) => {
+    const messaging = useCallback((text: string, callBack?: any, option?: optionsProps) => {
         const newOption = {
-            cnacelable: option?.cancelable || initalOptions?.cancelable,
+            cancelable: option?.cancelable || initalOptions?.cancelable,
             info: {
                 normal: option?.info?.normal || initalOptions?.info?.normal,
                 success: option?.info?.success || initalOptions?.info.success,
@@ -31,12 +33,15 @@ function MessageContextProvider({ children }: Props) {
             },
             timeOut: option?.timeOut || initalOptions?.timeOut
         }
-        setMessages(prev => [...prev, { message: text, options: newOption }])
+        // setMessages(prev => [...prev, { message: text, callBack, options: newOption }])
+        setMessages({...messages, message: text, callBack, options: newOption })
     }, [initalOptions])
+    console.log(messages)
     return (
         <MessageState.Provider value={messaging}>
             {children}
-            {messages.map((v:any) => (<MyAlert key={v} text={v?.message} options={v?.options} />))}
+            <MyAlert text={messages?.message} options={messages?.options} />
+            {/* {messages.map((v:any, i: number) => (<MyAlert key={i} text={v?.message} options={v?.options} />))} */}
         </MessageState.Provider>
     );
 }
