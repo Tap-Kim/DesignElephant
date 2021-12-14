@@ -10,7 +10,6 @@ type Children = {
     render?: boolean
 }
 function MessageContextProvider({ children }: Props) {
-    // const [messages, setMessages] = useState<Children>([])
     const [messages, setMessages] = useState<Children>()
     const initalOptions = useMemo(() => ({
         position: { bottomRight: true, bottomLeft: false },
@@ -33,15 +32,13 @@ function MessageContextProvider({ children }: Props) {
             },
             timeOut: option?.timeOut || initalOptions?.timeOut
         }
-        // setMessages(prev => [...prev, { message: text, callBack, options: newOption }])
         setMessages({...messages, message: text, callBack, options: newOption })
     }, [initalOptions])
-    console.log(messages)
+
     return (
         <MessageState.Provider value={messaging}>
             {children}
             <MyAlert text={messages?.message} options={messages?.options} />
-            {/* {messages.map((v:any, i: number) => (<MyAlert key={i} text={v?.message} options={v?.options} />))} */}
         </MessageState.Provider>
     );
 }

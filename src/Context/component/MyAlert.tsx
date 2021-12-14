@@ -14,40 +14,27 @@ function MyAlert({ text, options, style }: MyAlertProps) {
     const [cancel, setCancel] = useState(false)
 
     useEffect(() => {
-        // if (options?.timeOut) {
-        //     setTimeout(() => { setAnimation(true) }, options?.timeOut)
-        //     setTimeout(() => { setCancel(true) }, options?.timeOut + 1000)
-        // }
+        const close = (e:any) => {
+          if(e.keyCode === 27){
+            onClickMain()
+          }
+        }
+        window.addEventListener('keydown', close)
+      return () => window.removeEventListener('keydown', close)
+    },[])
 
+    useEffect(() => {
         if (options?.cancelable) {
-            // setCancel(false)
-            // setTimeout(() => { setCancel(true) }, 100)
             setCancel(true)
         }
     }, [options])
 
     const onClickMain = useCallback(() => {
-        if (options?.cancelable) {
-            
-            setCancel(true)
-            // setAnimation(true)
-            // setTimeout(() => { setCancel(true) }, 1000)
-            
-        }
+        setCancel(false)
     }, [])
 
-    // const themeMemo = useMemo(() => {
-    //     return { options, timeOut: { animation, cancel } }
-    // }, [options, cancel, animation])
-
-    console.log(cancel)
-
-    // if(cancel === true){
-    //     return <></>
-    // }
-
     const Child = (options: MyAlertProps) => (
-        <div className="EPDialog" style={style} onClick={onClickMain}>
+        <div className="EPDialog" style={style}>
             <div>
                 {options?.info?.success ? text + "⭕" :
                     options?.info?.warn ? text + "❌" :
@@ -60,7 +47,7 @@ function MyAlert({ text, options, style }: MyAlertProps) {
     return (
         <Modal
             show={cancel}
-            onHide={() => setCancel(false)}
+            onHide={() => onClickMain()}
             backdrop="static"
             keyboard={false}
         >
@@ -68,7 +55,7 @@ function MyAlert({ text, options, style }: MyAlertProps) {
                 {/* <Modal.Title></Modal.Title> */}
             </Modal.Header>
             <Modal.Body>
-                <MemoChild options={options}/>
+                <MemoChild options={options} />
             </Modal.Body>
         </Modal>
     );
