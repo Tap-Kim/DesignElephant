@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     echo 'World'
-                    sh 'sleep 5'
+                    // sh 'sleep 5'
                 }
             }
         }
