@@ -4,11 +4,11 @@ import MessageContextProvider from './Context/MessageContextProvider';
 
 function App() {
   return (
-    <div className="App">
-      <MessageContextProvider>
-        <Main />
-      </MessageContextProvider>
-    </div>
+      <div className="App">
+        <MessageContextProvider>
+          <Main />
+        </MessageContextProvider>
+      </div>
   );
 }
 

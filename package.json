@@ -25,11 +25,15 @@
   },
   "scripts": {
     "dev": "webpack serve --config ./config/webpack.config.dev.js",
+    "dev_build": "webpack serve --config ./config/webpack.config.dev.js",
     "build_webpack": "webpack --config ./config/webpack.config.prod.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "re_start": "react-app-rewired start",
+    "re_build": "react-app-rewired build",
+    "re_test": "react-app-rewired test"
   },
   "eslintConfig": {
     "extends": [
@@ -51,17 +55,22 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.16.7",
     "@babel/plugin-proposal-optional-chaining": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "core-decorators": "^0.20.0",
     "css-loader": "^6.5.1",
+    "customize-cra": "^1.0.0",
     "html-loader": "^3.0.1",
+    "react-app-rewired": "^2.1.11",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.6",
-    "webpack": "^5.64.3",
+    "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.5.0",
     "webpack-merge": "^5.8.0"

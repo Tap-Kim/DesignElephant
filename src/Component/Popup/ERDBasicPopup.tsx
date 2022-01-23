@@ -7,10 +7,12 @@ import { BasicInfo } from '@/model/common.interface'
 import { useContext } from 'react'
 import { MessageState } from '@/Context/MessageContextProvider'
 
-function ERDBasicPopup(props: any) {
-    const [basicInfo, setBasicInfo] = useState<BasicInfo>({})
-    const { isERDBasicPopup, setIsRDBasicPopup } = props
+type TypeProps = {
+    isERDBasicPopup:boolean, handleBasicPopup: (e:React.MouseEvent<HTMLButtonElement>) => void
+}
 
+function ERDBasicPopup({isERDBasicPopup, handleBasicPopup}: TypeProps) {
+    const [basicInfo, setBasicInfo] = useState<BasicInfo>({})
     let { dbType = DB_TYPE_LIST[0], relationLineNotionType = RELATION_TYPE_LIST[0], erdName = "", erdSize1 = null, erdSize2 = null, dbName = "", tableColor = "" } = basicInfo
     
     // 메세지 컨텍스트 임시
@@ -26,7 +28,7 @@ function ERDBasicPopup(props: any) {
     return (
         <Modal
             show={isERDBasicPopup}
-            onHide={setIsRDBasicPopup}
+            // onHide={() => {}}
             backdrop="static"
             keyboard={false}
         >
@@ -90,8 +92,8 @@ function ERDBasicPopup(props: any) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={setIsRDBasicPopup}>Close</Button>
-                <Button variant="primary" onClick={setIsRDBasicPopup}>Ok</Button>
+                <Button variant="secondary" onClick={handleBasicPopup}>Close</Button>
+                <Button variant="primary" onClick={handleBasicPopup}>Ok</Button>
             </Modal.Footer>
         </Modal>
     )
